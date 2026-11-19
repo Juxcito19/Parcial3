@@ -1,0 +1,21 @@
+[2026-11-18 21:10:31] Inicia el duelo: Juan vs jenny.
+[2026-11-18 21:38:09] Inicia el duelo: Juanito vs Jenny.
+[2026-11-18 21:38:21] Mago Oscuro ataca a Dragón Rojo. Dragón Rojo destruido. Jenny pierde 100 LP.
+[2026-11-18 21:38:23] No se puede atacar directo: Jenny tiene monstruos en el campo.
+[2026-11-18 21:38:24] No se puede atacar directo: Jenny tiene monstruos en el campo.
+[2026-11-18 21:38:36] Dragón Blanco ataca a Guerrero. Guerrero destruido. Jenny pierde 1200 LP.
+[2026-11-18 21:38:45] Mago Oscuro ataca a Muro de Piedra. Muro de Piedra (defensa) destruido. Sin daño a los LP.
+[2026-11-18 21:39:06] Dragón Blanco ataca directo. Jenny pierde 3000 LP.
+[2026-11-18 21:39:08] Mago Oscuro ataca directo. Jenny pierde 2500 LP.
+[2026-11-18 21:39:09] Mago Oscuro ataca directo. Jenny pierde 2500 LP.
+[2026-11-18 21:39:09] Fin del duelo. Gana Juanito.
+[2026-11-18 21:39:13] Inicia el duelo: Juanito vs Jenny.
+[2026-11-18 21:39:20] Mago Oscuro ataca a Muro de Piedra. Muro de Piedra (defensa) destruido. Sin daño a los LP.
+[2026-11-18 21:39:22] No se puede atacar directo: Jenny tiene monstruos en el campo.
+[2026-11-18 21:39:22] No se puede atacar directo: Jenny tiene monstruos en el campo.
+[2026-11-18 21:39:27] Mago Oscuro ataca a Dragón Rojo. Dragón Rojo destruido. Jenny pierde 100 LP.
+[2026-11-18 21:39:32] Mago Oscuro ataca a Guerrero. Guerrero destruido. Jenny pierde 700 LP.
+[2026-11-18 21:39:36] Mago Oscuro ataca directo. Jenny pierde 2500 LP.
+[2026-11-18 21:39:36] Mago Oscuro ataca directo. Jenny pierde 2500 LP.
+[2026-11-18 21:39:37] Mago Oscuro ataca directo. Jenny pierde 2500 LP.
+[2026-11-18 21:39:37] Fin del duelo. Gana Juanito.
