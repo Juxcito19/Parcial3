@@ -4,475 +4,355 @@
  */
 package vista;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.Insets;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import javax.swing.AbstractButton;
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.plaf.basic.BasicButtonUI;
-
 /**
  *
  * @author Usuario
  */
 public class Batalla extends javax.swing.JFrame {
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Batalla.class.getName());
 
     /**
      * Creates new form Batalla
      */
     public Batalla() {
         initComponents();
-        aplicarDiseno();
     }
 
-    // ===================== Diseño de la ventana =====================
-    private static final Color FONDO = new Color(24, 26, 38);
-    private static final Color TARJETA = new Color(36, 39, 56);
-    private static final Color BORDE = new Color(60, 64, 85);
-    private static final Color AZUL = new Color(77, 148, 255);
-    private static final Color ROJO = new Color(240, 86, 86);
-    private static final Color DORADO = new Color(255, 200, 87);
-    private static final Color TEXTO = new Color(230, 232, 240);
-    private static final Color TEXTO_SUAVE = new Color(150, 155, 175);
-    private static final Color GRIS_BOTON = new Color(70, 75, 98);
-
-
-    private void aplicarDiseno() {
-        setTitle("Batalla de Monstruos");
-        jPanel1.removeAll();
-        jPanel1.setLayout(new BorderLayout(0, 16));
-        jPanel1.setBackground(FONDO);
-        jPanel1.setBorder(BorderFactory.createEmptyBorder(18, 22, 18, 22));
-
-
-        jLabel1.setText("JUEGO DE MONSTRUOS");
-        jLabel1.setFont(new Font("Segoe UI", Font.BOLD, 28));
-        jLabel1.setForeground(DORADO);
-        jLabel1.setHorizontalAlignment(SwingConstants.CENTER);
-
-        jLabel2.setText("Jugador 1:");
-        jLabel3.setText("Jugador 2:");
-        estiloEtiqueta(jLabel2, AZUL, 14, Font.BOLD);
-        estiloEtiqueta(jLabel3, ROJO, 14, Font.BOLD);
-        estiloCampo(txtNombreJ1);
-        estiloCampo(txtNombreJ2);
-        estiloBoton(btnIniciar, DORADO, FONDO);
-
-        JPanel filaNombres = new JPanel(new FlowLayout(FlowLayout.CENTER, 8, 0));
-        filaNombres.setOpaque(false);
-        filaNombres.add(jLabel2);
-        filaNombres.add(txtNombreJ1);
-        filaNombres.add(Box.createHorizontalStrut(24));
-        filaNombres.add(btnIniciar);
-        filaNombres.add(Box.createHorizontalStrut(24));
-        filaNombres.add(jLabel3);
-        filaNombres.add(txtNombreJ2);
-
-        JPanel encabezado = new JPanel(new BorderLayout(0, 14));
-        encabezado.setOpaque(false);
-        encabezado.add(jLabel1, BorderLayout.NORTH);
-        encabezado.add(filaNombres, BorderLayout.CENTER);
-
-
-        jLabel4.setText("LIFE POINTS");
-        jLabel6.setText("LIFE POINTS");
-        jLabel5.setText("Monstruo atacante");
-        jLabel7.setText("Monstruo objetivo");
-
-        JPanel tarjetas = new JPanel(new GridLayout(1, 2, 18, 0));
-        tarjetas.setOpaque(false);
-        tarjetas.add(crearTarjeta("JUGADOR 1", AZUL, jLabel4, lblLpJ1, jLabel5, cmbAtacante));
-        tarjetas.add(crearTarjeta("JUGADOR 2", ROJO, jLabel6, lblLpJ2, jLabel7, cmbObjetivo));
-
-
-        estiloBoton(btnAtacar, ROJO, Color.WHITE);
-        estiloBoton(btnAtaqueDirecto, AZUL, Color.WHITE);
-        estiloBoton(btnReporteATQ, GRIS_BOTON, TEXTO);
-        estiloBoton(btnReporteDestruidos, GRIS_BOTON, TEXTO);
-
-        JPanel acciones = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));
-        acciones.setOpaque(false);
-        acciones.add(btnAtacar);
-        acciones.add(btnAtaqueDirecto);
-        acciones.add(Box.createHorizontalStrut(30));
-        acciones.add(btnReporteATQ);
-        acciones.add(btnReporteDestruidos);
-
-        JPanel arriba = new JPanel(new BorderLayout(0, 18));
-        arriba.setOpaque(false);
-        arriba.add(encabezado, BorderLayout.NORTH);
-        arriba.add(tarjetas, BorderLayout.CENTER);
-        arriba.add(acciones, BorderLayout.SOUTH);
-
- 
-        JLabel tituloLog = new JLabel("REGISTRO DEL DUELO");
-        estiloEtiqueta(tituloLog, TEXTO_SUAVE, 12, Font.BOLD);
-
-        txtLog.setFont(new Font("Consolas", Font.PLAIN, 13));
-        txtLog.setBackground(new Color(18, 20, 30));
-        txtLog.setForeground(TEXTO);
-        txtLog.setCaretColor(TEXTO);
-        txtLog.setLineWrap(true);
-        txtLog.setWrapStyleWord(true);
-        txtLog.setMargin(new Insets(8, 10, 8, 10));
-        jScrollPane1.setBorder(BorderFactory.createLineBorder(BORDE));
-        jScrollPane1.setPreferredSize(new Dimension(0, 190));
-
-        JPanel registro = new JPanel(new BorderLayout(0, 6));
-        registro.setOpaque(false);
-        registro.add(tituloLog, BorderLayout.NORTH);
-        registro.add(jScrollPane1, BorderLayout.CENTER);
-
-        jPanel1.add(arriba, BorderLayout.NORTH);
-        jPanel1.add(registro, BorderLayout.CENTER);
-
-        setMinimumSize(new Dimension(760, 640));
-        pack();
-    }
-
-    private JPanel crearTarjeta(String titulo, Color acento, JLabel lblTituloLp,
-            JLabel lblLp, JLabel lblMonstruo, JComboBox<String> combo) {
-        JPanel tarjeta = new JPanel(new GridBagLayout());
-        tarjeta.setBackground(TARJETA);
-        tarjeta.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createMatteBorder(4, 0, 0, 0, acento),
-                BorderFactory.createEmptyBorder(14, 18, 18, 18)));
-
-        JLabel lblTitulo = new JLabel(titulo);
-        estiloEtiqueta(lblTitulo, acento, 15, Font.BOLD);
-        estiloEtiqueta(lblTituloLp, TEXTO_SUAVE, 11, Font.BOLD);
-        estiloEtiqueta(lblLp, TEXTO, 40, Font.BOLD);
-        estiloEtiqueta(lblMonstruo, TEXTO_SUAVE, 12, Font.PLAIN);
-
-        // Ancho fijo para que el combo no se estire con nombres largos
-        combo.setPrototypeDisplayValue("Guerrero Ígneo [ATQ 2300 / DEF 1200 / ATAQUE]");
-        combo.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-
-        GridBagConstraints c = new GridBagConstraints();
-        c.gridx = 0;
-        c.weightx = 1;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.anchor = GridBagConstraints.WEST;
-
-        c.gridy = 0;
-        tarjeta.add(lblTitulo, c);
-        c.gridy = 1;
-        c.insets = new Insets(10, 0, 0, 0);
-        tarjeta.add(lblTituloLp, c);
-        c.gridy = 2;
-        c.insets = new Insets(0, 0, 0, 0);
-        tarjeta.add(lblLp, c);
-        c.gridy = 3;
-        c.insets = new Insets(14, 0, 4, 0);
-        tarjeta.add(lblMonstruo, c);
-        c.gridy = 4;
-        c.insets = new Insets(0, 0, 0, 0);
-        tarjeta.add(combo, c);
-        return tarjeta;
-    }
-
-    private void estiloEtiqueta(JLabel lbl, Color color, int tamano, int estilo) {
-        lbl.setForeground(color);
-        lbl.setFont(new Font("Segoe UI", estilo, tamano));
-    }
-
-    private void estiloCampo(JTextField campo) {
-        campo.setColumns(10);
-        campo.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-    }
-
-    private void estiloBoton(JButton boton, Color fondo, Color texto) {
-        Color hover = fondo.brighter();
-        boton.setUI(new BasicButtonUI() {
-            @Override
-            protected void paintButtonPressed(Graphics g, AbstractButton b) {
-                g.setColor(fondo.darker());
-                g.fillRect(0, 0, b.getWidth(), b.getHeight());
-            }
-        });
-        boton.setBackground(fondo);
-        boton.setForeground(texto);
-        boton.setFont(new Font("Segoe UI", Font.BOLD, 13));
-        boton.setFocusPainted(false);
-        boton.setOpaque(true);
-        boton.setBorder(BorderFactory.createEmptyBorder(9, 18, 9, 18));
-        boton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        boton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                boton.setBackground(hover);
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                boton.setBackground(fondo);
-            }
-        });
-    }
-
-
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel1 = new javax.swing.JPanel();
+        pnlSuperior = new javax.swing.JPanel();
+        pnlEncabezado = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        pnlNombres = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         txtNombreJ1 = new javax.swing.JTextField();
+        btnIniciar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         txtNombreJ2 = new javax.swing.JTextField();
-        btnIniciar = new javax.swing.JButton();
+        lblTurno = new javax.swing.JLabel();
+        pnlJugadores = new javax.swing.JPanel();
+        pnlJugador1 = new javax.swing.JPanel();
+        pnlFranja1 = new javax.swing.JPanel();
+        pnlDatos1 = new javax.swing.JPanel();
+        lblTituloJ1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         lblLpJ1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        cmbAtacante = new javax.swing.JComboBox<>();
+        cmbJugador1 = new javax.swing.JComboBox<>();
+        pnlJugador2 = new javax.swing.JPanel();
+        pnlFranja2 = new javax.swing.JPanel();
+        pnlDatos2 = new javax.swing.JPanel();
+        lblTituloJ2 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         lblLpJ2 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        cmbObjetivo = new javax.swing.JComboBox<>();
+        cmbJugador2 = new javax.swing.JComboBox<>();
+        pnlAcciones = new javax.swing.JPanel();
         btnAtacar = new javax.swing.JButton();
         btnAtaqueDirecto = new javax.swing.JButton();
         btnReporteATQ = new javax.swing.JButton();
         btnReporteDestruidos = new javax.swing.JButton();
+        pnlRegistro = new javax.swing.JPanel();
+        lblRegistro = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtLog = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Batalla de Monstruos");
+        setMinimumSize(new java.awt.Dimension(760, 640));
 
+        jPanel1.setBackground(new java.awt.Color(244, 241, 234));
+        jPanel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(18, 22, 18, 22));
+        jPanel1.setLayout(new java.awt.BorderLayout(0, 16));
+
+        pnlSuperior.setOpaque(false);
+        pnlSuperior.setLayout(new java.awt.BorderLayout(0, 18));
+
+        pnlEncabezado.setOpaque(false);
+        pnlEncabezado.setLayout(new java.awt.BorderLayout(0, 14));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 28)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(91, 42, 134));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("JUEGO DE MONSTRUOS");
+        pnlEncabezado.add(jLabel1, java.awt.BorderLayout.NORTH);
 
-        jLabel2.setText("Jugador 1: ");
+        pnlNombres.setOpaque(false);
+        pnlNombres.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 12, 0));
 
-        txtNombreJ1.addActionListener(this::txtNombreJ1ActionPerformed);
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(15, 157, 138));
+        jLabel2.setText("Jugador 1:");
+        pnlNombres.add(jLabel2);
 
-        jLabel3.setText("Jugador 2:");
+        txtNombreJ1.setColumns(10);
+        txtNombreJ1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        pnlNombres.add(txtNombreJ1);
 
+        btnIniciar.setBackground(new java.awt.Color(91, 42, 134));
+        btnIniciar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        btnIniciar.setForeground(new java.awt.Color(255, 255, 255));
         btnIniciar.setText("Iniciar Duelo");
-        btnIniciar.addActionListener(this::btnIniciarActionPerformed);
+        btnIniciar.setFocusPainted(false);
+        pnlNombres.add(btnIniciar);
 
-        jLabel4.setText("LP Jugador 1");
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(142, 68, 173));
+        jLabel3.setText("Jugador 2:");
+        pnlNombres.add(jLabel3);
 
+        txtNombreJ2.setColumns(10);
+        txtNombreJ2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        pnlNombres.add(txtNombreJ2);
+
+        pnlEncabezado.add(pnlNombres, java.awt.BorderLayout.CENTER);
+
+        lblTurno.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        lblTurno.setForeground(new java.awt.Color(91, 42, 134));
+        lblTurno.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTurno.setText("Escribe los nombres y presiona Iniciar Duelo");
+        pnlEncabezado.add(lblTurno, java.awt.BorderLayout.SOUTH);
+
+        pnlSuperior.add(pnlEncabezado, java.awt.BorderLayout.NORTH);
+
+        pnlJugadores.setOpaque(false);
+        pnlJugadores.setLayout(new java.awt.GridLayout(1, 2, 18, 0));
+
+        pnlJugador1.setBackground(new java.awt.Color(255, 255, 255));
+        pnlJugador1.setLayout(new java.awt.BorderLayout());
+
+        pnlFranja1.setBackground(new java.awt.Color(15, 157, 138));
+        pnlFranja1.setPreferredSize(new java.awt.Dimension(10, 4));
+        pnlJugador1.add(pnlFranja1, java.awt.BorderLayout.NORTH);
+
+        pnlDatos1.setBorder(javax.swing.BorderFactory.createEmptyBorder(14, 18, 18, 18));
+        pnlDatos1.setOpaque(false);
+        pnlDatos1.setLayout(new java.awt.GridBagLayout());
+
+        lblTituloJ1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        lblTituloJ1.setForeground(new java.awt.Color(15, 157, 138));
+        lblTituloJ1.setText("JUGADOR 1");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        pnlDatos1.add(lblTituloJ1, gridBagConstraints);
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(107, 112, 128));
+        jLabel4.setText("PUNTOS DE VIDA");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
+        pnlDatos1.add(jLabel4, gridBagConstraints);
+
+        lblLpJ1.setFont(new java.awt.Font("Segoe UI", 1, 40)); // NOI18N
+        lblLpJ1.setForeground(new java.awt.Color(43, 45, 66));
         lblLpJ1.setText("8000");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        pnlDatos1.add(lblLpJ1, gridBagConstraints);
 
+        jLabel5.setForeground(new java.awt.Color(107, 112, 128));
         jLabel5.setText("Monstruo atacante");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(14, 0, 4, 0);
+        pnlDatos1.add(jLabel5, gridBagConstraints);
 
-        jLabel6.setText("LP Jugador 2");
+        cmbJugador1.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        cmbJugador1.setPreferredSize(new java.awt.Dimension(320, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        pnlDatos1.add(cmbJugador1, gridBagConstraints);
 
+        pnlJugador1.add(pnlDatos1, java.awt.BorderLayout.CENTER);
+
+        pnlJugadores.add(pnlJugador1);
+
+        pnlJugador2.setBackground(new java.awt.Color(255, 255, 255));
+        pnlJugador2.setLayout(new java.awt.BorderLayout());
+
+        pnlFranja2.setBackground(new java.awt.Color(142, 68, 173));
+        pnlFranja2.setPreferredSize(new java.awt.Dimension(10, 4));
+        pnlJugador2.add(pnlFranja2, java.awt.BorderLayout.NORTH);
+
+        pnlDatos2.setBorder(javax.swing.BorderFactory.createEmptyBorder(14, 18, 18, 18));
+        pnlDatos2.setOpaque(false);
+        pnlDatos2.setLayout(new java.awt.GridBagLayout());
+
+        lblTituloJ2.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        lblTituloJ2.setForeground(new java.awt.Color(142, 68, 173));
+        lblTituloJ2.setText("JUGADOR 2");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        pnlDatos2.add(lblTituloJ2, gridBagConstraints);
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(107, 112, 128));
+        jLabel6.setText("PUNTOS DE VIDA");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
+        pnlDatos2.add(jLabel6, gridBagConstraints);
+
+        lblLpJ2.setFont(new java.awt.Font("Segoe UI", 1, 40)); // NOI18N
+        lblLpJ2.setForeground(new java.awt.Color(43, 45, 66));
         lblLpJ2.setText("8000");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        pnlDatos2.add(lblLpJ2, gridBagConstraints);
 
+        jLabel7.setForeground(new java.awt.Color(107, 112, 128));
         jLabel7.setText("Monstruo objetivo");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(14, 0, 4, 0);
+        pnlDatos2.add(jLabel7, gridBagConstraints);
 
+        cmbJugador2.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        cmbJugador2.setPreferredSize(new java.awt.Dimension(320, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        pnlDatos2.add(cmbJugador2, gridBagConstraints);
+
+        pnlJugador2.add(pnlDatos2, java.awt.BorderLayout.CENTER);
+
+        pnlJugadores.add(pnlJugador2);
+
+        pnlSuperior.add(pnlJugadores, java.awt.BorderLayout.CENTER);
+
+        pnlAcciones.setOpaque(false);
+        pnlAcciones.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 0));
+
+        btnAtacar.setBackground(new java.awt.Color(228, 87, 46));
+        btnAtacar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        btnAtacar.setForeground(new java.awt.Color(255, 255, 255));
         btnAtacar.setText("Atacar");
-        btnAtacar.addActionListener(this::btnAtacarActionPerformed);
+        btnAtacar.setFocusPainted(false);
+        pnlAcciones.add(btnAtacar);
 
+        btnAtaqueDirecto.setBackground(new java.awt.Color(15, 157, 138));
+        btnAtaqueDirecto.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        btnAtaqueDirecto.setForeground(new java.awt.Color(255, 255, 255));
         btnAtaqueDirecto.setText("Ataque directo");
-        btnAtaqueDirecto.addActionListener(this::btnAtaqueDirectoActionPerformed);
+        btnAtaqueDirecto.setFocusPainted(false);
+        pnlAcciones.add(btnAtaqueDirecto);
 
+        btnReporteATQ.setBackground(new java.awt.Color(92, 103, 125));
+        btnReporteATQ.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        btnReporteATQ.setForeground(new java.awt.Color(255, 255, 255));
         btnReporteATQ.setText("Reporte por ataque");
+        btnReporteATQ.setFocusPainted(false);
+        pnlAcciones.add(btnReporteATQ);
 
+        btnReporteDestruidos.setBackground(new java.awt.Color(92, 103, 125));
+        btnReporteDestruidos.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        btnReporteDestruidos.setForeground(new java.awt.Color(255, 255, 255));
         btnReporteDestruidos.setText("Reporte destruidos");
+        btnReporteDestruidos.setFocusPainted(false);
+        pnlAcciones.add(btnReporteDestruidos);
+
+        pnlSuperior.add(pnlAcciones, java.awt.BorderLayout.SOUTH);
+
+        jPanel1.add(pnlSuperior, java.awt.BorderLayout.NORTH);
+
+        pnlRegistro.setOpaque(false);
+        pnlRegistro.setLayout(new java.awt.BorderLayout(0, 6));
+
+        lblRegistro.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblRegistro.setForeground(new java.awt.Color(107, 112, 128));
+        lblRegistro.setText("REGISTRO DEL DUELO");
+        pnlRegistro.add(lblRegistro, java.awt.BorderLayout.NORTH);
+
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(214, 210, 196)));
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(600, 190));
 
         txtLog.setEditable(false);
+        txtLog.setBackground(new java.awt.Color(255, 255, 255));
         txtLog.setColumns(20);
+        txtLog.setFont(new java.awt.Font("Consolas", 0, 13)); // NOI18N
+        txtLog.setForeground(new java.awt.Color(43, 45, 66));
+        txtLog.setLineWrap(true);
         txtLog.setRows(5);
+        txtLog.setWrapStyleWord(true);
+        txtLog.setCaretColor(new java.awt.Color(43, 45, 66));
+        txtLog.setMargin(new java.awt.Insets(8, 10, 8, 10));
         jScrollPane1.setViewportView(txtLog);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txtNombreJ1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(82, 82, 82)
-                                        .addComponent(lblLpJ1))
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(cmbAtacante, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(68, 68, 68)
-                                .addComponent(jLabel4))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGap(21, 21, 21)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnAtacar, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btnReporteATQ, javax.swing.GroupLayout.Alignment.TRAILING))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel3)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(163, 163, 163)
-                                .addComponent(btnIniciar))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtNombreJ2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(169, 169, 169))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(240, 240, 240)
-                                .addComponent(jLabel1))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(280, 280, 280)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(25, 25, 25)
-                                        .addComponent(lblLpJ2))
-                                    .addComponent(jLabel7)
-                                    .addComponent(btnAtaqueDirecto)
-                                    .addComponent(cmbObjetivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnReporteDestruidos)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(21, 21, 21)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 18, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addGap(23, 23, 23)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2)
-                        .addComponent(txtNombreJ1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel3)
-                        .addComponent(txtNombreJ2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnIniciar)))
-                .addGap(31, 31, 31)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel6))
-                .addGap(27, 27, 27)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblLpJ2)
-                    .addComponent(lblLpJ1))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel5))
-                .addGap(32, 32, 32)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmbObjetivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbAtacante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAtacar)
-                    .addComponent(btnAtaqueDirecto))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnReporteATQ)
-                    .addComponent(btnReporteDestruidos))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16))
-        );
+        pnlRegistro.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        jPanel1.add(pnlRegistro, java.awt.BorderLayout.CENTER);
+
+        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtNombreJ1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreJ1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreJ1ActionPerformed
-
-    private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnIniciarActionPerformed
-
-    private void btnAtacarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtacarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAtacarActionPerformed
-
-    private void btnAtaqueDirectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtaqueDirectoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAtaqueDirectoActionPerformed
-
     /**
-     * @param args the command line arguments
+     * Permite ejecutar el programa desde este archivo (Run File).
+     * El arranque real está en principal.Main.
      */
     public static void main(String args[]) {
-
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        // Colores oscuros para Nimbus (campos de texto, combos, scroll y diálogos)
-        javax.swing.UIManager.put("control", new Color(36, 39, 56));
-        javax.swing.UIManager.put("info", new Color(36, 39, 56));
-        javax.swing.UIManager.put("nimbusBase", new Color(30, 33, 48));
-        javax.swing.UIManager.put("nimbusBlueGrey", new Color(60, 64, 85));
-        javax.swing.UIManager.put("nimbusLightBackground", new Color(28, 30, 44));
-        javax.swing.UIManager.put("nimbusFocus", new Color(77, 148, 255));
-        javax.swing.UIManager.put("nimbusSelectionBackground", new Color(77, 148, 255));
-        javax.swing.UIManager.put("nimbusSelectedText", Color.WHITE);
-        javax.swing.UIManager.put("nimbusDisabledText", new Color(120, 120, 135));
-        javax.swing.UIManager.put("text", new Color(230, 232, 240));
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-java.awt.EventQueue.invokeLater(() -> {
-    Batalla ventana = new Batalla();
-    new controlador.ControladorBatalla(ventana);
-    ventana.setLocationRelativeTo(null);
-    ventana.setVisible(true);
-});
+        principal.Main.main(args);
     }
+
     public javax.swing.JTextField getTxtNombreJ1() { return txtNombreJ1; }
     public javax.swing.JTextField getTxtNombreJ2() { return txtNombreJ2; }
     public javax.swing.JButton getBtnIniciar() { return btnIniciar; }
     public javax.swing.JLabel getLblLpJ1() { return lblLpJ1; }
     public javax.swing.JLabel getLblLpJ2() { return lblLpJ2; }
-    public javax.swing.JComboBox<String> getCmbAtacante() { return cmbAtacante; }
-    public javax.swing.JComboBox<String> getCmbObjetivo() { return cmbObjetivo; }
+    public javax.swing.JComboBox<String> getCmbJugador1() { return cmbJugador1; }
+    public javax.swing.JComboBox<String> getCmbJugador2() { return cmbJugador2; }
+    public javax.swing.JLabel getLblMonstruoJ1() { return jLabel5; }
+    public javax.swing.JLabel getLblMonstruoJ2() { return jLabel7; }
+    public javax.swing.JLabel getLblTurno() { return lblTurno; }
     public javax.swing.JButton getBtnAtacar() { return btnAtacar; }
     public javax.swing.JButton getBtnAtaqueDirecto() { return btnAtaqueDirecto; }
     public javax.swing.JButton getBtnReporteATQ() { return btnReporteATQ; }
@@ -484,8 +364,8 @@ java.awt.EventQueue.invokeLater(() -> {
     private javax.swing.JButton btnIniciar;
     private javax.swing.JButton btnReporteATQ;
     private javax.swing.JButton btnReporteDestruidos;
-    private javax.swing.JComboBox<String> cmbAtacante;
-    private javax.swing.JComboBox<String> cmbObjetivo;
+    private javax.swing.JComboBox<String> cmbJugador1;
+    private javax.swing.JComboBox<String> cmbJugador2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -497,6 +377,22 @@ java.awt.EventQueue.invokeLater(() -> {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblLpJ1;
     private javax.swing.JLabel lblLpJ2;
+    private javax.swing.JLabel lblRegistro;
+    private javax.swing.JLabel lblTituloJ1;
+    private javax.swing.JLabel lblTituloJ2;
+    private javax.swing.JLabel lblTurno;
+    private javax.swing.JPanel pnlAcciones;
+    private javax.swing.JPanel pnlDatos1;
+    private javax.swing.JPanel pnlDatos2;
+    private javax.swing.JPanel pnlEncabezado;
+    private javax.swing.JPanel pnlFranja1;
+    private javax.swing.JPanel pnlFranja2;
+    private javax.swing.JPanel pnlJugador1;
+    private javax.swing.JPanel pnlJugador2;
+    private javax.swing.JPanel pnlJugadores;
+    private javax.swing.JPanel pnlNombres;
+    private javax.swing.JPanel pnlRegistro;
+    private javax.swing.JPanel pnlSuperior;
     private javax.swing.JTextArea txtLog;
     private javax.swing.JTextField txtNombreJ1;
     private javax.swing.JTextField txtNombreJ2;

@@ -27,6 +27,15 @@ public class Combate {
     }
 
     /**
+     * Pasa el turno: el que defendía ahora ataca y el que atacaba ahora defiende.
+     */
+    public void cambiarTurno() {
+        Jugador temporal = atacante;
+        atacante = defensor;
+        defensor = temporal;
+    }
+
+    /**
      * Sobrecarga 1: ataque de un monstruo contra otro monstruo.
      * Devuelve la diferencia (puede ser negativa).
      */
@@ -64,7 +73,7 @@ public class Combate {
             } else {
                 this.atacante.destruirMonstruo(atacante);
                 defensor.destruirMonstruo(objetivo);
-                sb.append("Ambos monstruos destruidos.");
+                sb.append("Ambos monstruos destruidos. Daño: 0 LP.");
             }
         } else {
             if (diferencia > 0) {
@@ -75,7 +84,7 @@ public class Combate {
                 sb.append("El ataque falla. ").append(this.atacante.getNombre())
                   .append(" pierde ").append(-diferencia).append(" LP.");
             } else {
-                sb.append("Empate: no se destruye ningún monstruo.");
+                sb.append("Empate: no se destruye ningún monstruo. Daño: 0 LP.");
             }
         }
         return sb.toString();

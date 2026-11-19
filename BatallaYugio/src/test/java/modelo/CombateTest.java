@@ -107,6 +107,23 @@ public class CombateTest {
     }
 
     @Test
+    public void cambiarTurnoIntercambiaAtacanteYDefensor() {
+        combate.cambiarTurno();
+        assertEquals(j2, combate.getAtacante());
+        assertEquals(j1, combate.getDefensor());
+    }
+
+    @Test
+    public void despuesDeCambiarTurnoElJugador2DañaAlJugador1() {
+        Monstruo a = new Monstruo("Dragón", 2400, 2000, Monstruo.ATAQUE);
+        j2.agregarMonstruo(a);
+        combate.cambiarTurno();
+        combate.resolverAtaqueDirecto(a);
+        assertEquals(5600, j1.getLp());
+        assertEquals(8000, j2.getLp());
+    }
+
+    @Test
     public void ataqueDirectoBloqueadoSiHayMonstruosEnElCampo() {
         Monstruo a = new Monstruo("Mago", 2500, 2100, Monstruo.ATAQUE);
         j1.agregarMonstruo(a);

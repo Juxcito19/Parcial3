@@ -5,7 +5,6 @@
 package modelo;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 
 /**
  *
@@ -63,30 +62,23 @@ public class Jugador {
         return lp <= 0;
     }
 
+    /**
+     * Solo los monstruos en posición de ATAQUE pueden atacar.
+     */
+    public boolean tieneMonstruosEnAtaque() {
+        for (Monstruo m : campo) {
+            if (m.getPosicion().equals(Monstruo.ATAQUE)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void destruirMonstruo(Monstruo m) {
         if (campo.remove(m)) {
             m.setDestruido(true);
             cementerio.add(m);
         }
-    }
-
-    public ArrayList<Monstruo> reporteMonstruosPorATQ() {
-        ArrayList<Monstruo> copia = new ArrayList<>(campo);
-        copia.sort(Comparator.comparingInt(Monstruo::getAtq).reversed());
-        return copia;
-    }
-
-    /**
-     * Reporte 2: monstruos destruidos (cementerio).
-     */
-    public ArrayList<Monstruo> reporteMonstruosDestruidos() {
-        ArrayList<Monstruo> destruidos = new ArrayList<>();
-        for (Monstruo m : cementerio) {
-            if (m.isDestruido()) {
-                destruidos.add(m);
-            }
-        }
-        return destruidos;
     }
 
     @Override
